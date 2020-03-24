@@ -9,11 +9,32 @@ public class Undo implements GenericCom{
 	}
 	public void appl() {
 		// TODO Auto-generated method stub
-		
+		while (!pile.isEmpty()) {
+			pile.pop();
+		}
+		undo.pop();
+		copyLastStack();
 	}
 	public Undo(Stack<Double> pile) {
 		super();
 		this.pile = pile;
 	}
+	public boolean canApply() {
+		return !undo.isEmpty();
+	}
+
+	public void alertChange() {
+		@SuppressWarnings("unchecked")
+		Stack<Double> s = (Stack<Double>) pile.clone();
+		undo.push(s);
+	}
+
+	private void copyLastStack() {
+		for (double d : undo.lastElement()) {
+			pile.push(d);
+		}
+	}
+
 	
+
 }
